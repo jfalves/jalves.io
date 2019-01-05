@@ -1,0 +1,20 @@
+{
+  "name": "jalves.io",
+  "version": "0.0.1",
+  "description": "Jonathan Alves' personal website",
+  "scripts": {
+    "setup-theme": "rm -rf themes/hugo-coder && git submodule add -f https://github.com/luizdepra/hugo-coder.git themes/hugo-coder && cd themes/hugo-coder && git checkout v1.1",
+    "setup-hugo": "brew install hugo",
+    "setup-apply-patch": "cd  themes/hugo-coder && git apply ../patches/*.patch",
+    "setup": "npm run -s setup-hugo && npm run -s setup-theme && npm run -s setup-apply-patch",
+    "build": "hugo --gc --minify --themesDir '../themes' --source 'root' --baseURL 'https://jalves.io/'",
+    "preview": "hugo server -D --themesDir '../themes' --source 'root'"
+  },
+  "keywords": [],
+  "author": "Jonathan Alves",
+  "license": "ISC",
+  "devDependencies": {
+    "less": "^4.2.0",
+    "uglifycss": "^0.0.29"
+  }
+}

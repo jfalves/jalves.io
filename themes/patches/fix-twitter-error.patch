@@ -1,0 +1,26 @@
+diff --git a/exampleSite/content/posts/rich-content.md b/exampleSite/content/posts/rich-content.md
+index 92b4b03..8cdb9c4 100644
+--- a/exampleSite/content/posts/rich-content.md
++++ b/exampleSite/content/posts/rich-content.md
+@@ -23,7 +23,7 @@ Hugo ships with several [Built-in Shortcodes](https://gohugo.io/content-manageme
+ 
+ ## Twitter Simple Shortcode
+ 
+-{{< twitter_simple 1085870671291310081 >}}
++<!-- {{< twitter_simple 1085870671291310081 >}} -->
+ 
+ <br>
+ 
+diff --git a/exampleSite/content/posts/rich-content.pt-br.md b/exampleSite/content/posts/rich-content.pt-br.md
+index e06730f..d973809 100644
+--- a/exampleSite/content/posts/rich-content.pt-br.md
++++ b/exampleSite/content/posts/rich-content.pt-br.md
+@@ -23,7 +23,7 @@ O Hugo vem com vários [Shortcodes Internos](https://gohugo.io/content-managemen
+ 
+ ## Shortcode simples do Twitter
+ 
+-{{< twitter_simple 1085870671291310081 >}}
++<!-- {{< twitter_simple 1085870671291310081 >}} -->
+ 
+ <br>
+ 
