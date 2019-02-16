@@ -1,0 +1,16 @@
+<hr class="separator" />
+<div class="media author-box">
+  {{- range .Params.authors }}
+    {{- with $.Site.GetPage "taxonomyTerm" (printf "authors/%s" (urlize .)) }}
+
+    <div class="media-figure">
+      <img src="{{ .Params.photo }}" alt="avatar"/>
+    </div>
+
+    <div class="media-body">
+      {{ .Content }}
+    </div>
+
+    {{ end }}
+  {{ end }}
+</div>
