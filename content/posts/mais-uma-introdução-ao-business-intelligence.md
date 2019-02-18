@@ -1,4 +1,5 @@
 ---
+draft: false
 title: "Mais uma introdução ao Business Intelligence"
 date: 2019-01-17T15:31:46-02:00
 authors:
