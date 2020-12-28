@@ -1,5 +1,5 @@
 ---
-draft: False
+draft: false
 title: "O Macaco do Infinito e seu Algoritmo Genético"
 date: 2019-04-13T08:34:00-03:00
 authors:
