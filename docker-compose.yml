@@ -1,0 +1,18 @@
+version: "2.4"
+
+services:
+
+  build:
+    image: klakegg/hugo:0.55.1
+    volumes:
+      - ".:/src"
+
+  server:
+    image: klakegg/hugo:0.55.1
+    command: server
+    volumes:
+      - ".:/src"
+    ports:
+      - "1313:1313"
+    depends_on:
+      - "build"
