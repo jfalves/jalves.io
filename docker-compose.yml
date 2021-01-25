@@ -5,10 +5,9 @@ services:
   build:
     image: klakegg/hugo:0.55.1
     environment:
-      - HUGO_DESTINATION=/public_html
+      - HUGO_DESTINATION=docs
     volumes:
       - ".:/src"
-      - "./public_html:/public_html"
 
   server:
     image: klakegg/hugo:0.55.1
