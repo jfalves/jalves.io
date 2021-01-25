@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="Jonathan Alves">
+    <meta name="description" content="Jonathan Alves&#39;s personal website">
+    <meta name="keywords" content="blog,tecnologia,bi,business intelligence,dados,analista bi,analista de business intelligence,engenheiro de dados">
+
+    <base href="http://jalves.bi/posts/o-macaco-do-infinito-e-seu-algoritmo-genetico/">
+    <title>
+  O Macaco do Infinito e seu Algoritmo Genético · jalves.bi
+</title>
+
+    <link rel="canonical" href="http://jalves.bi/posts/o-macaco-do-infinito-e-seu-algoritmo-genetico/">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Merriweather:300,700|Source+Code+Pro:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" integrity="sha256-oSrCnRYXvHG31SBifqP2PM1uje7SJUyX0nTwO2RJV54=" crossorigin="anonymous" />
+
+    
+      
+      
+      <link rel="stylesheet" href="http://jalves.bi/css/coder.min.efacbe0289fc66ffe6071754de5dfd6bff47546169ffdb7e18d187adad9e13dd.css" integrity="sha256-76y&#43;Aon8Zv/mBxdU3l39a/9HVGFp/9t&#43;GNGHra2eE90=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+
+    
+      <link rel="stylesheet" href="http://jalves.bi/css/custom.css">
+    
+
+    <link rel="icon" type="image/png" href="http://jalves.bi/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="http://jalves.bi/images/favicon-16x16.png" sizes="16x16">
+
+    
+
+    <meta name="generator" content="Hugo 0.55.1" />
+  </head>
+
+  <body class=" ">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-131723195-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    <a class="navigation-title" href="http://jalves.bi">
+      jalves.bi
+    </a>
+    <input type="checkbox" id="menu-toggle" />
+    <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
+    <ul class="navigation-list">
+      
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="http://jalves.bi/posts/">Blog</a>
+          </li>
+        
+      
+      
+    </ul>
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">O Macaco do Infinito e seu Algoritmo Genético</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+ 	    <span class="posted-on">
+              <i class="fas fa-user"></i>
+                    Jonathan Alves
+                 
+              
+            </span>
+            <span class="posted-on">
+              <i class="fas fa-calendar"></i>
+              <time datetime='2019-04-13T08:34:00-03:00'>
+                13/04/2019
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fas fa-clock"></i>
+              11 minutos
+            </span>
+          </div>
+          
+          
+        </div>
+      </header>
+      <div>
+        
+
+<p>Suponhamos o seguinte absurdo: em um universo paralelo, a terra é populada apenas por um macaco e uma máquina de escrever (Sim, você leu certo!) e toda a interação nesse universo ocorre apenas entre eles. Com suas habilidades primitivas, o macaco aperta aleatoriamente as teclas da máquina, gerando páginas e mais páginas de conteúdos aleatórios. Quais são as chances desses macacos acidentalmente escrever o livro Hamlet, de William Shakespeare, ou pelo menos parte dela?
+Fazendo uma conta simples, vamos calcular a chance de aleatoriamente escrever a palavra &ldquo;Ser&rdquo;, extraída da famosa frase &ldquo;Ser ou não ser, eis a questão&rdquo;. Considerando um teclado com 26 letras mais a tecla de espaço, ou seja, 27 teclas, a chance de apertamos a tecla &ldquo;S&rdquo; é de <sup>1</sup>&frasl;<sub>27</sub>. Já a chance de acertar a tecla &ldquo;E&rdquo; após acertamos a letra &ldquo;S&rdquo; é de <sup>1</sup>&frasl;<sub>27</sub> * <sup>1</sup>&frasl;<sub>27</sub> e por fim, a chance de acertarmos a tecla &ldquo;R&rdquo; após termos acertado as duas primeiras é de <sup>1</sup>&frasl;<sub>27</sub> * <sup>1</sup>&frasl;<sub>27</sub> * <sup>1</sup>&frasl;<sub>27</sub>, que é igual à 0,005%. Assim, podemos imaginar que para que o macaco acerte aleatoriamente toda a sequência de letras que compõem Hamlet seja uma probabilidade muitíssimo baixa (<sup>1</sup>&frasl;<sub>27</sub><sup>quantidade total de caracteres</sup>), mas ainda sim possível, caso as tentativas ocorressem em um período de tempo infinito<sup>1</sup>.
+Porém, existe uma técnica muito mais eficiente para navegarmos por todas as soluções aleatórias e obtermos um resultado satisfatório, chamado de Algoritmo Genético.</p>
+
+<h2 id="o-algoritmo-genético">O Algoritmo Genético</h2>
+
+<p>O algoritmo genético<sup>2</sup> é inspirado no conceito de seleção natural, tirado da teoria da evolução de Charles Darwin, e como o próprio escreveu:</p>
+
+<blockquote>
+<p>&ldquo;Não é o mais forte que sobrevive. Nem o mais inteligente. Mas o que se adapta às mudanças.&rdquo;</p>
+</blockquote>
+
+<p>Baseado nisso, John Holland<sup>3</sup> introduziu o conceito de algoritmo genético que muito abstratamente funciona assim:</p>
+
+<p>Dado uma população de soluções aleatórias do seu problema.</p>
+
+<ol>
+<li>Escolhe-se reprodutores proporcionalmente à sua adaptabilidade, ou seja, quanto mais apto, maior a chance de ser escolhido.</li>
+<li>Os sobreviventes se reproduzem, garantindo que as características boas se propaguem pras gerações futuras.</li>
+<li>Os filhos dessa geração estão sujeitos à alguma mutação, que pode ser algo positivo ou não no ponto de vista da evolução.</li>
+<li>Os reprodutores são substituídos pelo seu filhos e o ciclo se repete.</li>
+</ol>
+
+<p>Esse algoritmo é muito útil quando temos um problema com incontáveis possibilidades e queremos achar a melhor solução, ou seja, uma ferramenta de busca dentro de um espaço amostal grande. Algumas das aplicações<sup>4</sup> incluem otimização de funções matemáticas, problemas de otimização de rota de veículos, otimização de distribuição, etc.
+Vamos agora partir para um exemplo prático, implementado em python, vamos ajudar o macaco da introdução a achar a frase &ldquo;ser ou não ser eis a questão&rdquo; dentro da aleatoriedade utilizando algoritmo genético.</p>
+
+<h2 id="população-inicial">População Inicial</h2>
+
+<p>Vamos começar definindo uma população inicial aleatoriamente. Os genes, característica que identifica um indivíduo, vão ser representados por uma lista de caracteres, que iremos manipular com o objetivo de aproximar esses indivíduos da frase de referência. Para esse exemplo vamos usar a biblioteca <strong>numpy</strong> para lidar com algumas operações de vetores.</p>
+
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="font-weight:bold">import</span> <span style="font-weight:bold">string</span>
+<span style="font-weight:bold">import</span> <span style="font-weight:bold">numpy</span> <span style="font-weight:bold">as</span> <span style="font-weight:bold">np</span>
+<span style="font-weight:bold">from</span> <span style="font-weight:bold">numpy</span> <span style="font-weight:bold">import</span> random
+
+<span style="font-style:italic">#Realiza o setup inicial dos dados necessários para começar utilizar o algoritmo</span>
+target = <span style="font-style:italic">&#39;ser ou nao ser eis a questao&#39;</span>
+population_size = 100
+mutation_rate = 0.01
+genes_sample_space = list(string.whitespace[0] + string.ascii_lowercase)
+
+<span style="font-style:italic">#Gera uma população inicial aleatória.</span>
+target_size = len(target)
+population_list = list()
+
+<span style="font-weight:bold">for</span> n <span style="font-weight:bold">in</span> range(population_size):
+  individual = random.choice(genes_sample_space, target_size)
+  population_list.append(individual)
+
+<span style="font-style:italic">#Apresenta a população, esse item é opcional</span>
+[print(<span style="font-style:italic">&#39;&#39;</span>.join(element)) <span style="font-weight:bold">for</span> element <span style="font-weight:bold">in</span> population_list]</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>Das linhas 7-10, definimos a variável <strong>target</strong>, que representa a referência pela qual vamos aproximar nossa população. Também, iniciamos as variáveis <strong>population_size</strong> e <strong>mutation_rate</strong> que são responsáveis por determinar o tamanho da população e a taxa de mutação dos genes. Não se preocupe se ainda não entender para que usaremos a taxa de mutação, isso será explicado em breve. Por fim, definimos um espaço amostral dos genes, a variável <strong>genes_sample_space</strong>, que é uma lista responsável por manter todas as possibilidades de caracteres que um gene pode ter.</p>
+
+<p>Da linha 17-19, populamos uma lista com os genes de todos os indivíduos da população, escolhidos aleatoriamente através da função <strong>random.choice(array, n)</strong>, que retorna uma lista do tamanho da frase de referência com base no conteúdo do espaço amostral.</p>
+
+<h2 id="classificando-os-indivíduos">Classificando os indivíduos</h2>
+
+<p>Agora que temos a população inicial gerada, vamos classificar os indivíduos para sabermos o quão aptos eles são. No nosso exemplo, criaremos uma função <em>fitness</em> que diga o quão próximo nossos indivíduos estão da frase de referência.</p>
+
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="font-style:italic">#Calcula o score de cada indivíduo</span>
+<span style="font-weight:bold">def</span> fitness(individual, target, size):
+
+    score = 0
+
+    <span style="font-weight:bold">for</span> idx <span style="font-weight:bold">in</span> range(size):
+        <span style="font-weight:bold">if</span> individual[idx] == target[idx]:
+            score += 1
+
+    <span style="font-weight:bold">return</span> 2**score
+
+<span style="font-style:italic">#Calcula a adaptação dos indivíduos.</span>
+population_fitness = list()
+<span style="font-weight:bold">for</span> idx <span style="font-weight:bold">in</span> range(population_size):
+  population_fitness.append(fitness(population_list[idx], target, target_size))</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>Na linha 3-10, temos a definição da função que recebe como parâmetro o indivíduo, a frase referência e o tamanho do genes. Também, comparamos gene à gene do indivíduo com o da frase referência, a cada acerto nós acrescentamos 1 à sua pontuação.</p>
+
+<p>Na linha 11, retornamos a sua pontuação através do cálculo <strong>2</strong><sup><strong>score</strong></sup>. Mas porque não retornarmos somente a soma da pontuação?</p>
+
+<p>Bom sem entrar muito em detalhes o que estamos fazendo é bonificar os indivíduos com mais acertos, utilizando uma função exponencial. Poderíamos utilizar somente a pontuação como métrica, mas teríamos um algoritmo mais lento por estarmos utilizando uma função linear de classificação.</p>
+
+<p>Finalmente, nas linhas 15-17, realizamos os cálculos de classificação para todos os membros da população e armazenamos em uma lista chamada <strong>population_fitness</strong>.</p>
+
+<h2 id="selecionando-os-indivíduos">Selecionando os indivíduos</h2>
+
+<p>Com o cálculo da adaptabilidade de cada indivíduo da população, iremos criar um conjunto de possíveis reprodutores. Nessa fase algo bem intuitivo nos passa pela cabeça, que é a ideia de selecionarmos somente os melhores indivíduos. Porém essa não é uma boa ideia, pois ao fazermos isso, estamos negando a variabilidade genética, que é responsável pela diversidade da nossa população e essa decisão pode fazer com que nossa população fique estagnada em um máximo local. A abordagem que tomei foi de escolher proporcionalmente os indivíduos reprodutores, ou seja, quanto mais apto mais provável de ser escolhido e vice versa.</p>
+
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="font-style:italic">#calcula o melhor score de toda população</span>
+best_score = np.amax(population_fitness)
+
+<span style="font-style:italic">#Seleciona os índividuos que irão se reproduzir</span>
+<span style="font-weight:bold">def</span> mate_selection(population_list, population_fitness, population_size, best_score):
+
+    mates = list()
+
+    <span style="font-weight:bold">for</span> idx <span style="font-weight:bold">in</span> range(population_size):
+        individual = population_list[idx]
+
+        <span style="font-style:italic">#Normaliza a pontuação dos indivíduos para uma escala de 0 à 1.</span>
+        normalized_score = np.interp(population_fitness[idx], (0,best_score), (0,1))
+        <span style="font-style:italic">#Probabilidade do indivíduo ser escolhido.</span>
+        probability = int(normalized_score * 100)
+
+        <span style="font-weight:bold">for</span> n <span style="font-weight:bold">in</span> range(probability):
+            mates.append(individual)
+
+    <span style="font-weight:bold">return</span> mates
+
+<span style="font-style:italic">#1. Seleciona os indivíduos que irão se reproduzir.</span>
+mating_pool = mate_selection(population_list, population_fitness, population_size, best_score)
+mating_pool_size = len(mating_pool)</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>Na linha 3, retornamos a melhor pontuação para utilizarmos posteriormente.</p>
+
+<p>Na linha 7, definimos a função que irá retornar o conjunto de reprodutores recebendo como parâmetro a população inicial e sua respectivas pontuações, o tamanho da população e a melhor pontuação.</p>
+
+<p>Nas linhas 11-22, para cada individuo iremos calcular a probabilidade dele ser escolhido numa escala de 0% à 100% e iremos criar uma lista de indivíduos repetidos pela quantidade correspondente à sua probabilidade. A variável <strong>normalized_score</strong> converte o intervalo das pontuações, do 0 até a melhor pontuação, em um intervalo de 0 à 1. Esse processo é muito comum na estatística e é conhecido como normalização. Já a variável <strong>probability</strong> escala a normalização para um número inteiro de 0 à 100, isso só para criar o vetor de <em>n</em> posições desse indivíduo.</p>
+
+<h2 id="a-reprodução-e-a-mutação">A Reprodução e a mutação</h2>
+
+<p>Agora que temos uma lista de candidatos proporcional à sua adaptabilidade, vamos gerar filhos. Essa técnica é comumente chamada de <em>crossover</em> e consiste em misturar os genes de dois indivíduos selecionados ao acaso da nossa lista de reprodutores.</p>
+
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="font-style:italic">#Realiza o cruzamento dos genes</span>
+<span style="font-weight:bold">def</span> crossover(parent_a, parent_b, target_size):
+
+    child = list()
+    midpoint = random.randint(target_size)
+
+    <span style="font-weight:bold">for</span> idx <span style="font-weight:bold">in</span> range(target_size):
+        <span style="font-weight:bold">if</span> idx &gt; midpoint:
+            child.append(parent_a[idx])
+        <span style="font-weight:bold">else</span>:
+            child.append(parent_b[idx])
+
+    <span style="font-weight:bold">return</span> child
+
+<span style="font-style:italic">#Realiza a mutação dos genes</span>
+<span style="font-weight:bold">def</span> mutation(child, target_size, mutation_rate):
+
+    <span style="font-weight:bold">for</span> idx <span style="font-weight:bold">in</span> range(target_size):
+        <span style="font-weight:bold">if</span> mutation_rate &gt;= random.random():
+            child[idx] = random.choice(genes_sample_space, 1)[0]
+
+    <span style="font-weight:bold">return</span> child
+
+<span style="font-style:italic">#2. Fase de Reprodução.</span>
+<span style="font-weight:bold">for</span> idx <span style="font-weight:bold">in</span> range(population_size):
+    parent_a = mating_pool[random.randint(mating_pool_size)]
+    parent_b = mating_pool[random.randint(mating_pool_size)]
+
+    <span style="font-style:italic">#2.1 Reproduz-se</span>
+    child = crossover(parent_a, parent_b, target_size)
+    <span style="font-style:italic">#3. Ocorre uma mutação.</span>
+    child = mutation(child, target_size, mutation_rate)
+
+    <span style="font-style:italic">#4. Substituímos a população pelo filho gerado.</span>
+    population_list[idx] = child</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>A linha 3 corresponde a função <strong>crossover</strong> onde é responsável pelo cruzamento de genes de dois indivíduos, no caso, o indivíduo <strong>parent_a</strong> e <strong>parent_b</strong>. Na linha 6, define-se o ponto de corte do genes aleatoriamente. E por fim, das linhas 8-14 retorna-se um novo indivíduo, mescla de <strong>parent_a</strong> e <strong>parent_b</strong>.</p>
+
+<p>Da linha 28-41, para cada indivíduo seleciona-se dois indivíduos aleatórios do conjunto de reprodutores e aplica-se a função <strong>crossover</strong>.</p>
+
+<p>A partir disso, na linha 37, aplica-se a função <strong>mutation</strong>, responsável por ocasionar mutações genéticas de acordo com uma taxa de mutabilidade. Essa função é interessante pois apesar de querermos caminhar em direção a uma solução ótima, também gostaríamos de conservar uma variedade genética.</p>
+
+<p>Após essas fases, na linha 41, substituímos o indivíduo pelo o que acabamos de gerar. Com isso, o ciclo dessa geração encerra-se e passamos pelas fases descritas, novamente.</p>
+
+<p>Abaixo segue todo o código em um único lugar.</p>
+
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 73
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 74
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 75
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 76
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 77
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 78
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 79
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 80
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 81
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 82
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 83
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 84
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 85
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 86
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 87
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 88
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 89
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 90
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 91
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 92
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 93
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 94
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 95
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 96
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 97
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 98
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 99
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">100
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">101
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="font-weight:bold">import</span> <span style="font-weight:bold">string</span>
+<span style="font-weight:bold">import</span> <span style="font-weight:bold">numpy</span> <span style="font-weight:bold">as</span> <span style="font-weight:bold">np</span>
+<span style="font-weight:bold">from</span> <span style="font-weight:bold">numpy</span> <span style="font-weight:bold">import</span> random
+
+
+<span style="font-style:italic">#Calcula o score de cada indivíduo</span>
+<span style="font-weight:bold">def</span> fitness(individual, target, size):
+
+    score = 0
+
+    <span style="font-weight:bold">for</span> idx <span style="font-weight:bold">in</span> range(size):
+        <span style="font-weight:bold">if</span> individual[idx] == target[idx]:
+            score += 1
+
+    <span style="font-weight:bold">return</span> 2**score
+
+<span style="font-style:italic">#Seleciona os índividuos que irão se reproduzir</span>
+<span style="font-weight:bold">def</span> mate_selection(population_list, population_fitness, population_size, best_score):
+
+    mates = list()
+
+    <span style="font-weight:bold">for</span> idx <span style="font-weight:bold">in</span> range(population_size):
+        individual = population_list[idx]
+
+        <span style="font-style:italic">#Normaliza a pontuação dos indivíduos para uma escala de 0 à 1.</span>
+        normalized_score = np.interp(population_fitness[idx], (0,best_score), (0,1))
+        <span style="font-style:italic">#Probabilidade do indivíduo ser escolhido.</span>
+        probability = int(normalized_score * 100)
+
+        <span style="font-weight:bold">for</span> n <span style="font-weight:bold">in</span> range(probability):
+            mates.append(individual)
+
+    <span style="font-weight:bold">return</span> mates
+
+<span style="font-style:italic">#Realiza o cruzamento dos genes</span>
+<span style="font-weight:bold">def</span> crossover(parent_a, parent_b, target_size):
+
+    child = list()
+    midpoint = random.randint(target_size)
+
+    <span style="font-weight:bold">for</span> idx <span style="font-weight:bold">in</span> range(target_size):
+        <span style="font-weight:bold">if</span> idx &gt; midpoint:
+            child.append(parent_a[idx])
+        <span style="font-weight:bold">else</span>:
+            child.append(parent_b[idx])
+
+    <span style="font-weight:bold">return</span> child
+
+<span style="font-style:italic">#Realiza a mutação dos genes</span>
+<span style="font-weight:bold">def</span> mutation(child, target_size, mutation_rate):
+
+    <span style="font-weight:bold">for</span> idx <span style="font-weight:bold">in</span> range(target_size):
+        <span style="font-weight:bold">if</span> mutation_rate &gt;= random.random():
+            child[idx] = random.choice(genes_sample_space, 1)[0]
+
+    <span style="font-weight:bold">return</span> child
+
+
+<span style="font-style:italic">#Realiza o setup inicial dos dados necessários para começar utilizar o algoritmo</span>
+target = <span style="font-style:italic">&#39;ser ou nao ser eis a questao&#39;</span>
+population_size = 100
+mutation_rate = 0.01
+genes_sample_space = list(string.whitespace[0] + string.ascii_lowercase)
+
+<span style="font-style:italic">#Gera uma população inicial aleatória.</span>
+target_size = len(target)
+population_list = list()
+
+<span style="font-weight:bold">for</span> n <span style="font-weight:bold">in</span> range(population_size):
+  individual = random.choice(genes_sample_space, target_size)
+  population_list.append(individual)
+
+
+<span style="font-weight:bold">while</span> <span style="font-weight:bold">True</span>:
+
+    <span style="font-style:italic">#Calcula a adaptação dos indivíduos.</span>
+    population_fitness = list()
+    <span style="font-weight:bold">for</span> idx <span style="font-weight:bold">in</span> range(population_size):
+        population_fitness.append(fitness(population_list[idx], target, target_size))
+
+    <span style="font-style:italic">#calcula o melhor score de toda população</span>
+    best_score = np.amax(population_fitness)
+
+    <span style="font-style:italic">#1. Seleciona os indivíduos que irão se reproduzir.</span>
+    mating_pool = mate_selection(population_list, population_fitness, population_size, best_score)
+    mating_pool_size = len(mating_pool)
+
+    <span style="font-style:italic">#2. Fase de Reprodução.</span>
+    <span style="font-weight:bold">for</span> idx <span style="font-weight:bold">in</span> range(population_size):
+        parent_a = mating_pool[random.randint(mating_pool_size)]
+        parent_b = mating_pool[random.randint(mating_pool_size)]
+
+        <span style="font-style:italic">#2.1 Reproduz-se</span>
+        child = crossover(parent_a, parent_b, target_size)
+        <span style="font-style:italic">#3. Ocorre uma mutação.</span>
+        child = mutation(child, target_size, mutation_rate)
+
+        <span style="font-style:italic">#4. Substituimos a população pelo filho gerado.</span>
+        population_list[idx] = child
+
+        print(<span style="font-style:italic">&#39;&#39;</span>.join(population_list[idx]))</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>E o output é:</p>
+
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3">r sdjxdfzeajkujjhnyzpknstbho
+wayfyzvqgytoijwllrfwwe rjuyb
+ rzedxdgcofyxs gil wjwmwtyfq
+pmdbabjlkgqwib efxbqibzypart
+eqvbeoufavpmnkqhdmuaxqubskpe
+qjjgwgtioenua isvk zvqf fkko
+r sdjxdyrsauakintwhowbxbj wd
+webdeoufavpaokfcyimyakrtwmzd
+nmymmwmhfjbrnjfqgqkyzoweakpe
+sszezpybzvdpkmstkgpzxoyeptyj
+.
+.
+.
+.
+ser ou njopser eis a questao
+ser ousnvosser eis a questao
+seryok n ofser eis a cuestao
+ser ou n ofser eis a questao
+ser ku njopser eis a questao
+ser ou nhosser eis a questao
+ser ou naosser eis a qugstao
+ser ou naosser eis a questao
+ser ou naosser eis a questao
+ser ou nao ser eis a questao</code></pre></td></tr></table>
+</div>
+</div>
+
+<h2 id="conclusão">Conclusão</h2>
+
+<p>Vimos que o algoritmo genético é uma forma de encontrarmos uma solução ideal dentre infinitas outras. Para uma versão implementada orientada a objetos considere olhar o link 5 na leitura adicional.</p>
+
+<h2 id="leitura-adicional">Leitura Adicional</h2>
+
+<ul>
+<li><a href="https://natureofcode.com/book/chapter-9-the-evolution-of-code/">[1]</a> Nature of Code: Chapter 9. The Evolution of Code.</li>
+<li><a href="https://en.wikipedia.org/wiki/Genetic_algorithm">[2]</a> Wikipedia: Genetic Algorithm</li>
+<li><a href="https://en.wikipedia.org/wiki/John_Henry_Holland">[3]</a> Wikipedia: John Henry Holland</li>
+<li><a href="http://www2.ica.ele.puc-rio.br/Downloads%5C38/CE-Apostila-Comp-Evol.pdf">[4]</a> Algoritmos Genéticos: Princípios e Aplicações por Marco Aurélio Cavalcanti Pacheco.</li>
+<li><a href="https://github.com/jfalves/Genetic-Algorithm-from-Scratch">[5]</a> JFAlves - Github - Genetic Algorithm from Scratch.</li>
+</ul>
+
+      </div>
+      <hr class="section-divider">
+      <footer>
+        
+      </footer>
+    </article>
+
+    <hr class="separator" />
+<div class="media author-box">
+
+    <div class="media-figure">
+      <img src="http://jalves.bi/images/avatar.png" alt="avatar"/>
+    </div>
+
+    <div class="media-body">
+      <p><strong>Jonathan Alves</strong> sempre foi apaixonado pela tecnologia e sua influência em nosso cotidiano. Essa paixão define sua carreira profissional do qual, orgulhosamente, tem atuado há oito anos, apoiando organizações de diversos tamanhos em suas decisões de negócio.</p>
+
+    </div>
+
+    
+  
+</div>
+
+    
+  </section>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5c41bd475f392350"></script>
+
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+    
+    
+    
+    
+  </section>
+</footer>
+
+    </main>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-131723195-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+  </body>
+
+</html>
