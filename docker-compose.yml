@@ -4,6 +4,8 @@ services:
 
   build:
     image: klakegg/hugo:0.55.1
+    environment:
+      - HUGO_DESTINATION=docs
     volumes:
       - ".:/src"
 
@@ -14,5 +16,3 @@ services:
       - ".:/src"
     ports:
       - "1313:1313"
-    depends_on:
-      - "build"
