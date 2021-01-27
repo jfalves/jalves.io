@@ -9,12 +9,12 @@
     <meta name="description" content="Jonathan Alves&#39;s personal website">
     <meta name="keywords" content="blog,tecnologia,bi,business intelligence,dados,analista bi,analista de business intelligence,engenheiro de dados">
 
-    <base href="http://jalves.io/posts/amazon-reshift-seu-data-warehouse-na-nuvem/">
+    <base href="https://jalves.io/posts/amazon-reshift-seu-data-warehouse-na-nuvem/">
     <title>
   Amazon Redshift, seu data warehouse nas nuvens · jalves.io
 </title>
 
-    <link rel="canonical" href="http://jalves.io/posts/amazon-reshift-seu-data-warehouse-na-nuvem/">
+    <link rel="canonical" href="https://jalves.io/posts/amazon-reshift-seu-data-warehouse-na-nuvem/">
 
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Merriweather:300,700|Source+Code+Pro:400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous" />
@@ -23,7 +23,7 @@
     
       
       
-      <link rel="stylesheet" href="http://jalves.io/css/coder.min.efacbe0289fc66ffe6071754de5dfd6bff47546169ffdb7e18d187adad9e13dd.css" integrity="sha256-76y&#43;Aon8Zv/mBxdU3l39a/9HVGFp/9t&#43;GNGHra2eE90=" crossorigin="anonymous" media="screen" />
+      <link rel="stylesheet" href="https://jalves.io/css/coder.min.efacbe0289fc66ffe6071754de5dfd6bff47546169ffdb7e18d187adad9e13dd.css" integrity="sha256-76y&#43;Aon8Zv/mBxdU3l39a/9HVGFp/9t&#43;GNGHra2eE90=" crossorigin="anonymous" media="screen" />
     
 
     
@@ -31,11 +31,11 @@
     
 
     
-      <link rel="stylesheet" href="http://jalves.io/css/custom.css">
+      <link rel="stylesheet" href="https://jalves.io/css/custom.css">
     
 
-    <link rel="icon" type="image/png" href="http://jalves.io/images/favicon-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="http://jalves.io/images/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="https://jalves.io/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://jalves.io/images/favicon-16x16.png" sizes="16x16">
 
     
 
@@ -60,7 +60,7 @@ if (!doNotTrack) {
 }
 </script>
 
-    <a class="navigation-title" href="http://jalves.io">
+    <a class="navigation-title" href="https://jalves.io">
       jalves.io
     </a>
     <input type="checkbox" id="menu-toggle" />
@@ -69,7 +69,7 @@ if (!doNotTrack) {
       
         
           <li class="navigation-item">
-            <a class="navigation-link" href="http://jalves.io/posts/">Blog</a>
+            <a class="navigation-link" href="https://jalves.io/posts/">Blog</a>
           </li>
         
       
@@ -116,7 +116,7 @@ if (!doNotTrack) {
 <p>Uma das tendências tecnologicas de mais destaque atualmente é a ter uma operação cada vez mais focada na resolução dos problemas de negócio e consequentemente, menos ativa em seus &ldquo;<em>efeitos colaterais</em>&rdquo; como a administração de servidores e serviços, infraestrutura, etc.</p>
 
 <p><center>
-    <img src="http://jalves.io/images/21-amazon-redshift.jpg" alt="Amazon Redshift" /></br>
+    <img src="https://jalves.io/images/21-amazon-redshift.jpg" alt="Amazon Redshift" /></br>
     <em>Amazon Redshift, seu data warehouse na nuvem</em>
 </center></p>
 
@@ -127,14 +127,14 @@ if (!doNotTrack) {
 <p>A plataforma foi lançada em 2012 e seu principal objetivo foi agregar os serviços já oferecidos pela compania como por exemplo a <a href="https://aws.amazon.com/pt/rds/">Amazon RDS</a>, porém, focado no processamento de alto volumes de dados analíticos. Aliás performance é uma das caracteristicas fortes do serviço, a arquitetura é baseada na tecnologia Massively Parallel Processing (MPP – Processamento paralelo em massa), desenvolvida pela <a href="https://www.actian.com/">ParAccel</a>, que distribui os dados entre máquinas a fim de aumentar a velocidade de acesso, algo parecido com o <a href="https://pt.wikipedia.org/wiki/MapReduce">MapReduce</a>, entretanto, transparente ao usuário na forma de consultas SQL padrão. Outra característica do serviço é o armazenamento colunar, típico de bancos analíticos e que é baseado em uma modificação do Postgres 8.0.2 para esse propósito. Também, é possível aplicar vários algoritmos de compactação nos dados, diminuindo espaço em disco e tráfego de rede.</p>
 
 <p><center>
-    <img src="http://jalves.io/images/22-amazon-redshift-architecture.jpg" alt="Arquitetura do Redshift" /></br>
+    <img src="https://jalves.io/images/22-amazon-redshift-architecture.jpg" alt="Arquitetura do Redshift" /></br>
     <em>Arquitetura básica de um cluster no Redshift.</em>
 </center></p>
 
 <p>Comparado a outras tecnologias, o Redshift é extremamente fácil de se configurar. Todas as operações podem ser feitas no <a href="https://aws.amazon.com/pt/console/">AWS Console</a> ou também, é possível alterar por uma API através de um <a href="https://aws.amazon.com/pt/cli/"><em>Client</em></a> oferecido pela AWS. Ajustes de performance também são simples, sendo eles na sua maioria ou aumento da capacidade do cluster, ou mudanças nas chaves de distribuição e chaves de classificação. As chaves de distribuição indicam como o dado vai ser distribuído entre as máquinas de um <em>cluster</em> enquanto que as chaves de classificação estão relacionadas a como o dado está ordenado, facilitando a busca nos discos/máquinas. Como qualquer banco de dados SQL, é possível analisar as consultas mais demoradas através do comando <strong><em>EXPLAIN</em></strong>.</p>
 
 <p><center>
-    <img src="http://jalves.io/images/23-aws-console.jpg" alt="AWS Console" /></br>
+    <img src="https://jalves.io/images/23-aws-console.jpg" alt="AWS Console" /></br>
     <em>No AWS Console é possível fazer qualquer alteração em relação ao seu cluster.</em>
 </center></p>
 
@@ -168,7 +168,7 @@ if (!doNotTrack) {
 <div class="media author-box">
 
     <div class="media-figure">
-      <img src="http://jalves.io/images/avatar.png" alt="avatar"/>
+      <img src="https://jalves.io/images/avatar.png" alt="avatar"/>
     </div>
 
     <div class="media-body">
