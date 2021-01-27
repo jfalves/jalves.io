@@ -3,34 +3,34 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://jalves.io/authors/jonathan-alves/</loc>
+    <loc>https://jalves.io/authors/jonathan-alves/</loc>
     <lastmod>2019-04-13T08:34:00-03:00</lastmod>
   </url>
   
   <url>
-    <loc>http://jalves.io/posts/o-macaco-do-infinito-e-seu-algoritmo-genetico/</loc>
+    <loc>https://jalves.io/posts/o-macaco-do-infinito-e-seu-algoritmo-genetico/</loc>
     <lastmod>2019-04-13T08:34:00-03:00</lastmod>
   </url>
   
   <url>
-    <loc>http://jalves.io/posts/</loc>
-    <lastmod>2019-04-13T08:34:00-03:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://jalves.io/</loc>
+    <loc>https://jalves.io/posts/</loc>
     <lastmod>2019-04-13T08:34:00-03:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://jalves.io/posts/amazon-reshift-seu-data-warehouse-na-nuvem/</loc>
+    <loc>https://jalves.io/</loc>
+    <lastmod>2019-04-13T08:34:00-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jalves.io/posts/amazon-reshift-seu-data-warehouse-na-nuvem/</loc>
     <lastmod>2019-02-17T10:53:32-03:00</lastmod>
   </url>
   
   <url>
-    <loc>http://jalves.io/posts/mais-uma-introdu%C3%A7%C3%A3o-ao-business-intelligence/</loc>
+    <loc>https://jalves.io/posts/mais-uma-introdu%C3%A7%C3%A3o-ao-business-intelligence/</loc>
     <lastmod>2019-01-17T15:31:46-02:00</lastmod>
   </url>
   
